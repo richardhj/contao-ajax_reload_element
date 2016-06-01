@@ -33,6 +33,9 @@
 							element.replaceWith(response.html);
 							initAjaxForm();
 						}
+						else {
+							location.reload();
+						}
 					} else {
 						// The element processes a reload
 						if (xhr.getResponseHeader('X-Ajax-Location').indexOf(this.url) >= 0) {
@@ -45,8 +48,6 @@
 							window.location.replace(xhr.getResponseHeader('X-Ajax-Location'));
 						}
 					}
-
-					location.reload();
 				});
 		});
 	}
