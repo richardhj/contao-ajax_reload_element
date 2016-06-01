@@ -1,0 +1,56 @@
+
+<script>
+	/* ajax_reload_element for Contao Open Source CMS, (c) 2016 Richard Henkenjohann */
+	function initAjaxForm() {
+		$("div[data-ajax-reload-form-submit] form").submit(function (event) {
+
+			var form = $(this);
+
+			// We only support forms with method POST
+			if (form.attr("method").toLowerCase() != 'post') {
+				return;
+			}
+
+			event.preventDefault();
+
+			var element = $(this).closest('[class^="ce_"],[class^="mod_"]');
+			element.addClass('ajax-reload-element-overlay');
+
+			$.ajax({
+				method: 'POST',
+				url: 'SimpleAjaxFrontend.php?' + jQuery.param({
+					action: 'reload-element',
+					element: element.attr('data-ajax-reload-element'),
+					auto_item: (typeof element.attr('data-ajax-reload-auto-item') != typeof undefined) ? element.attr('data-ajax-reload-auto-item') : '',
+					REQUEST_TOKEN: '<?= \RequestToken::get() ?>'
+				}),
+				data: form.serialize()
+			})
+				.done(function (response, status, xhr) {
+
+					if (status != 'nocontent') {
+						if (response.status == 'ok') {
+							element.replaceWith(response.html);
+							initAjaxForm();
+						}
+					} else {
+						// The element processes a reload
+						if (xhr.getResponseHeader('X-Ajax-Location').indexOf(this.url) >= 0) {
+							// Trigger new ajax request
+							form.find('[name=FORM_SUBMIT]').val('');
+							form.submit();
+						}
+						// The element processes a redirect
+						else {
+							window.location.replace(xhr.getResponseHeader('X-Ajax-Location'));
+						}
+					}
+
+					location.reload();
+				});
+		});
+	}
+	(function ($) {
+		$(document).ready(initAjaxForm);
+	})(jQuery);
+</script>
