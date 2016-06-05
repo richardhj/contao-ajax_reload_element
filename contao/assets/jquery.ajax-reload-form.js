@@ -11,7 +11,6 @@
 
 			var form = $(this);
 
-			// We only support forms with method POST
 			if (form.attr('method').toLowerCase() != 'post') {
 				return;
 			}
@@ -37,7 +36,6 @@
 					if (status != 'nocontent') {
 						if (response.status == 'ok') {
 							element.replaceWith(response.html);
-							// initAjaxReloadForm();
 						}
 						else {
 							location.reload();
