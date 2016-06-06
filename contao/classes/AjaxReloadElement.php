@@ -65,7 +65,7 @@ class AjaxReloadElement extends \Controller
 	 * Required get data:
 	 * * action: "reload-element"
 	 * * element: "ce::id" or "mod::id" (replace 'id' with the element's id)
-	 * * page: "id" (optional, replace 'id' with the current page's id)
+	 * * page: "id" (optionally, replace 'id' with the current page's id)
 	 * * auto_item: (an optional auto_item which will be set before fetching the element)
 	 * * REQUEST_TOKEN (as everywhere)
 	 */
@@ -83,6 +83,8 @@ class AjaxReloadElement extends \Controller
 		{
 			$objPage = \PageModel::findWithDetails((int)Input::get('page'));
 		}
+		
+		$GLOBALS['TL_LANGUAGE'] = (null !== $objPage) ? $objPage->language : $GLOBALS['TL_LANGUAGE'];
 
 		list ($strElementType, $intElementId) = trimsplit('::', Input::get('element'));
 		$strError = '';
