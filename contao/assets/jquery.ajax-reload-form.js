@@ -4,7 +4,8 @@
 
 		options = $.extend({
 			selector: 'div[data-ajax-reload-form-submit] form',
-			page: 0
+			page: 0,
+			reloadCssClass: 'ajax-reload-element-overlay'
 		}, options);
 
 		$(document).on('submit', options.selector, function (event) {
@@ -18,7 +19,7 @@
 			event.preventDefault();
 
 			var element = $(this).closest('[class^="ce_"],[class^="mod_"]');
-			element.addClass('ajax-reload-element-overlay');
+			element.addClass(options.reloadCssClass);
 
 			$.ajax({
 				method: 'POST',
