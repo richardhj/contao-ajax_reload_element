@@ -19,7 +19,7 @@
 		"php": ">=5.3",
 		"contao/core": "~3.2",
 		"codefog/contao-haste": "~4.11",
-		"leounglaub/contao-simple-ajax": "3.2.x-dev"
+		"richardhj/contao-simple-ajax": "~1.0"
 	},
 	"extra": {
 		"contao": {
