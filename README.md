@@ -4,7 +4,7 @@
 # AjaxRelaodElement for Contao Open Source CMS
 
 With AjaxReloadElement you have the possibility to fetch a particular front end module or content element via ajax. All you have to do is to tick the box „allow ajax reload“ for the module/element and include a JavaScript.
-If you are using jQuery you can use something like this.
+If you are using jQuery you can use something like this. (Create a `j_….html5` template and include it in the layout.)
 ```html
 <script>
 	$(".mod_my_module a.reloadThisElementOnClick").click(function (event) {
@@ -27,8 +27,7 @@ If you are using jQuery you can use something like this.
 				// Some elements use an auto_item to fetch particular content. The auto_item will automatically set in a data- attribute
 				auto_item: (typeof element.attr('data-ajax-reload-auto-item') != typeof undefined) ? element.attr('data-ajax-reload-auto-item') : '',
 				// A page id can be set optionally. Necessary for elements that work with different language files
-				page: <?= $GLOBALS['objPage']->id ?>,
-				REQUEST_TOKEN: '<?= \RequestToken::get() ?>'
+				page: <?= $GLOBALS['objPage']->id ?>
 			}
 		})
 			.done(function (response, status, xhr) {
