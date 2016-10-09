@@ -12,6 +12,7 @@
 use Haste\Http\Response\JsonResponse;
 use Haste\Input\Input;
 
+
 /**
  * Class AjaxReloadElement
  */
@@ -62,12 +63,11 @@ class AjaxReloadElement extends \Controller
 	/**
 	 * Return the demanded frontend module or content element parsed as html string
 	 *
-	 * Required get data:
+     * Required GET data:
 	 * * action: "reload-element"
 	 * * element: "ce::id" or "mod::id" (replace 'id' with the element's id)
 	 * * page: "id" (optionally, replace 'id' with the current page's id)
 	 * * auto_item: (an optional auto_item which will be set before fetching the element)
-	 * * REQUEST_TOKEN (as everywhere)
 	 */
 	public function getModuleOrContentElement()
 	{
