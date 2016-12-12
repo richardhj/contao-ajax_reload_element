@@ -157,6 +157,9 @@ class AjaxReloadElement extends \Controller
 				break;
 		}
 
+        // Remove login error from session as it is not done in the module class anymore (see contao/core#7824)
+        unset($_SESSION['LOGIN_ERROR']);
+
 		$arrResponse = array();
 
 		if ($strError)
