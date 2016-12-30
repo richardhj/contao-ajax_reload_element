@@ -160,6 +160,11 @@ class AjaxReloadElement extends \Controller
         // Remove login error from session as it is not done in the module class anymore (see contao/core#7824)
         unset($_SESSION['LOGIN_ERROR']);
 
+        // Replace insert tags and then re-replace the request_token tag in case a form element has been loaded via insert tag
+        $return = $this->replaceInsertTags($return, false);
+        $return = str_replace(array('{{request_token}}', '[{]', '[}]'), array(REQUEST_TOKEN, '{{', '}}'), $return);
+        $return = $this->replaceDynamicScriptTags($return); // see contao/core#4203
+
 		$arrResponse = array();
 
 		if ($strError)
