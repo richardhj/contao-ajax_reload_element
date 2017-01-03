@@ -21,12 +21,16 @@
 			var element = $(this).closest('[class^="ce_"],[class^="mod_"]');
 			element.addClass(options.reloadCssClass);
 
+            var params = {};
+            form.attr('action').replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});
+
 			$.ajax({
 				method: 'POST',
 				url: 'SimpleAjaxFrontend.php?' + jQuery.param({
 					action: 'reload-element',
 					element: element.attr('data-ajax-reload-element'),
 					auto_item: (typeof element.attr('data-ajax-reload-auto-item') != typeof undefined) ? element.attr('data-ajax-reload-auto-item') : '',
+					requestUri: params['requestUri'],
 					page: options.page,
 					REQUEST_TOKEN: form.find('[name=REQUEST_TOKEN]').val()
 				}),
