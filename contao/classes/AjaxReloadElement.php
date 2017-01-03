@@ -109,6 +109,7 @@ class AjaxReloadElement extends \Controller
 			Input::setGet('auto_item', $strAutoItem);
 		}
 
+		// Use the given requestUri param and set its query params (get params)
         list(, $query) = explode('?', Input::get('requestUri', true), 2);
 		parse_str($query, $params);
 
