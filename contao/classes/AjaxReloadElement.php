@@ -68,6 +68,7 @@ class AjaxReloadElement extends \Controller
 	 * * element: "ce::id" or "mod::id" (replace 'id' with the element's id)
 	 * * page: "id" (optionally, replace 'id' with the current page's id)
 	 * * auto_item: (an optional auto_item which will be set before fetching the element)
+     * * requestUri: (optionally uri to fetch the query params from)
 	 */
 	public function getModuleOrContentElement()
 	{
@@ -106,6 +107,13 @@ class AjaxReloadElement extends \Controller
 		if (($strAutoItem = Input::get('auto_item')))
 		{
 			Input::setGet('auto_item', $strAutoItem);
+		}
+
+        list(, $query) = explode('?', Input::get('requestUri', true), 2);
+		parse_str($query, $params);
+
+        foreach ($params as $k => $v) {
+		    Input::setGet($k, $v);
 		}
 
 		switch ($strElementType)
