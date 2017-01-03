@@ -110,7 +110,8 @@ class AjaxReloadElement extends \Controller
 		}
 
 		// Use the given requestUri param and set its query params (get params)
-        list(, $query) = explode('?', Input::get('requestUri', true), 2);
+        $requestUri = urldecode(Input::get('requestUri', true));
+        list(, $query) = explode('?', $requestUri, 2);
 		parse_str($query, $params);
 
         foreach ($params as $k => $v) {
