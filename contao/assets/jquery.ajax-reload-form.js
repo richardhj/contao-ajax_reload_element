@@ -27,8 +27,7 @@
 					action: 'reload-element',
 					element: element.attr('data-ajax-reload-element'),
 					auto_item: (typeof element.attr('data-ajax-reload-auto-item') != typeof undefined) ? element.attr('data-ajax-reload-auto-item') : '',
-					page: options.page,
-					REQUEST_TOKEN: form.find('[name=REQUEST_TOKEN]').val()
+					page: options.page
 				}),
 				data: form.serialize()
 			})
