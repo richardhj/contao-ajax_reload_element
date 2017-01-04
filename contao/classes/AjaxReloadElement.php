@@ -114,9 +114,16 @@ class AjaxReloadElement extends \Controller
         list(, $query) = explode('?', $requestUri, 2);
 		parse_str($query, $params);
 
+		parse_str(\Environment::get('queryString'), $params2);
+		$params3 = array_merge($params, $params2);
+
         foreach ($params as $k => $v) {
 		    Input::setGet($k, $v);
 		}
+
+		if (null !== $objPage) {
+            \Environment::set('request', $objPage->getFrontendUrl('?'.http_build_query($params3)));
+        }
 
 		switch ($strElementType)
 		{
