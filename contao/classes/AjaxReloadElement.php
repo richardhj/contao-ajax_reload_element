@@ -63,7 +63,7 @@ class AjaxReloadElement extends \Controller
 	/**
 	 * Return the demanded frontend module or content element parsed as html string
 	 *
-     * Required GET data:
+	 * Required GET data:
 	 * * action: "reload-element"
 	 * * element: "ce::id" or "mod::id" (replace 'id' with the element's id)
 	 * * page: "id" (optionally, replace 'id' with the current page's id)
@@ -157,13 +157,13 @@ class AjaxReloadElement extends \Controller
 				break;
 		}
 
-        // Remove login error from session as it is not done in the module class anymore (see contao/core#7824)
-        unset($_SESSION['LOGIN_ERROR']);
+		// Remove login error from session as it is not done in the module class anymore (see contao/core#7824)
+		unset($_SESSION['LOGIN_ERROR']);
 
-        // Replace insert tags and then re-replace the request_token tag in case a form element has been loaded via insert tag
-        $return = $this->replaceInsertTags($return, false);
-        $return = str_replace(array('{{request_token}}', '[{]', '[}]'), array(REQUEST_TOKEN, '{{', '}}'), $return);
-        $return = $this->replaceDynamicScriptTags($return); // see contao/core#4203
+		// Replace insert tags and then re-replace the request_token tag in case a form element has been loaded via insert tag
+		$return = $this->replaceInsertTags($return, false);
+		$return = str_replace(array('{{request_token}}', '[{]', '[}]'), array(REQUEST_TOKEN, '{{', '}}'), $return);
+		$return = $this->replaceDynamicScriptTags($return); // see contao/core#4203
 
 		$arrResponse = array();
 
