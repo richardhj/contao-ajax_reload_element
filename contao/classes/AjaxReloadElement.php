@@ -11,13 +11,49 @@
 
 use Haste\Http\Response\JsonResponse;
 use Haste\Input\Input;
+use SimpleAjax\Event\SimpleAjax as SimpleAjaxEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
 /**
  * Class AjaxReloadElement
  */
-class AjaxReloadElement extends \Controller
+class AjaxReloadElement extends \Controller implements EventSubscriberInterface
 {
+
+    /**
+     * AjaxReloadElement constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+
+    /**
+     * Returns an array of event names this subscriber wants to listen to.
+     *
+     * The array keys are event names and the value can be:
+     *
+     *  * The method name to call (priority defaults to 0)
+     *  * An array composed of the method name to call and the priority
+     *  * An array of arrays composed of the method names to call and respective
+     *    priorities, or 0 if unset
+     *
+     * For instance:
+     *
+     *  * array('eventName' => 'methodName')
+     *  * array('eventName' => array('methodName', $priority))
+     *  * array('eventName' => array(array('methodName1', $priority), array('methodName2')))
+     *
+     * @return array The event names to listen to
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            SimpleAjaxEvent::NAME => 'getModuleOrContentElement'
+        ];
+    }
 
 	/**
 	 * Add the html attribute to allowed elements
@@ -69,9 +105,9 @@ class AjaxReloadElement extends \Controller
 	 * * page: "id" (optionally, replace 'id' with the current page's id)
 	 * * auto_item: (an optional auto_item which will be set before fetching the element)
 	 */
-	public function getModuleOrContentElement()
+	public function getModuleOrContentElement(SimpleAjaxEvent $event)
 	{
-		if (!\Environment::get('isAjaxRequest') || Input::get('action') != 'reload-element')
+		if (false === $event->isIncludeFrontendExclusive() || !\Environment::get('isAjaxRequest') || Input::get('action') != 'reload-element')
 		{
 			return;
 		}
