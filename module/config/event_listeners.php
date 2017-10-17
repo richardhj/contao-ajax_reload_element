@@ -12,22 +12,11 @@
  */
 
 
-/**
- * Register the classes
- */
-ClassLoader::addClasses(
-    [
-	// Classes
-	'AjaxReloadElement' => 'system/modules/zz_ajax_reload_element/classes/AjaxReloadElement.php',
-    ]
-);
+use Richardhj\Contao\Ajax\AjaxReloadElement;
+use SimpleAjax\Event\SimpleAjax;
 
-
-/**
- * Register the templates
- */
-TemplateLoader::addFiles(
-    [
-	'j_ajaxform' => 'system/modules/zz_ajax_reload_element/templates',
-    ]
-);
+return [
+    SimpleAjax::NAME => [
+        [new AjaxReloadElement(), 'getModuleOrContentElement'],
+    ],
+];

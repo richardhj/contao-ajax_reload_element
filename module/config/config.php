@@ -12,7 +12,10 @@
  */
 
 
+use Richardhj\Contao\Ajax\AjaxReloadElement;
+
+
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['parseTemplate'][] = ['AjaxReloadElement', 'parseTemplate'];
+$GLOBALS['TL_HOOKS']['parseTemplate'][] = [AjaxReloadElement::class, 'parseTemplate'];

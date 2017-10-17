@@ -12,10 +12,11 @@
  */
 
 
-use SimpleAjax\Event\SimpleAjax;
-
-return [
-    SimpleAjax::NAME => [
-        [new AjaxReloadElement(), 'getModuleOrContentElement'],
-    ],
-];
+/**
+ * Register the templates
+ */
+TemplateLoader::addFiles(
+    [
+	'j_ajaxform' => 'system/modules/zz_ajax_reload_element/templates',
+    ]
+);

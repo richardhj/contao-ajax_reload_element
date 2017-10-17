@@ -11,7 +11,10 @@
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Contao\Ajax;
+
 use Contao\ContentElement;
+use Contao\ContentModel;
 use Contao\Controller;
 use Contao\Environment;
 use Contao\FrontendTemplate;
@@ -29,7 +32,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Class AjaxReloadElement
  */
-class AjaxReloadElement extends Controller
+class AjaxReloadElement
 {
 
     const TYPE_MODULE = 'mod';
@@ -164,9 +167,9 @@ class AjaxReloadElement extends Controller
         unset($_SESSION['LOGIN_ERROR']);
 
         // Replace insert tags and then re-replace the request_token tag in case a form element has been loaded via insert tag
-        $return = $this->replaceInsertTags($return, false);
+        $return = Controller::replaceInsertTags($return, false);
         $return = str_replace(['{{request_token}}', '[{]', '[}]'], [REQUEST_TOKEN, '{{', '}}'], $return);
-        $return = $this->replaceDynamicScriptTags($return); // see contao/core#4203
+        $return = Controller::replaceDynamicScriptTags($return); // see contao/core#4203
 
         $data = [];
 
