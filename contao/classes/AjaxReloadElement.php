@@ -32,6 +32,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class AjaxReloadElement extends Controller
 {
 
+    const TYPE_MODULE = 'mod';
+    const TYPE_CONTENT = 'ce';
+
     /**
      * Add the html attribute to allowed elements
      *
@@ -45,9 +48,9 @@ class AjaxReloadElement extends Controller
 
         // Determine whether we have a module or a content element by the vars given at this point
         if (Module::findClass($template->type)) {
-            $strType = 'mod';
+            $type = self::TYPE_MODULE;
         } elseif (ContentElement::findClass($template->type)) {
-            $strType = 'ce';
+            $type = self::TYPE_CONTENT;
         } else {
             return;
         }
@@ -59,7 +62,7 @@ class AjaxReloadElement extends Controller
         // Use cssID for our attribute
         $template->cssID .= sprintf(
             ' data-ajax-reload-element="%s::%u"%s%s',
-            $strType,
+            $type,
             $template->id,
             strlen($autoItem) ? sprintf(' data-ajax-reload-auto-item="%s"', $autoItem) : '',
             ($template->ajaxReloadFormSubmit) ? ' data-ajax-reload-form-submit=""' : ''
@@ -114,7 +117,7 @@ class AjaxReloadElement extends Controller
         }
 
         switch ($elementType) {
-            case 'mod':
+            case self::TYPE_MODULE:
                 /** @type Model $module */
                 $module = ModuleModel::findByPk($elementId);
 
@@ -133,7 +136,7 @@ class AjaxReloadElement extends Controller
                 $return = Controller::getFrontendModule($module);
                 break;
 
-            case 'ce':
+            case self::TYPE_CONTENT:
                 /** @type Model $contentElement */
                 $contentElement = ContentModel::findByPk($elementId);
 
