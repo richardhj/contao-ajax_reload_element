@@ -15,4 +15,4 @@
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['parseTemplate'][] = array('AjaxReloadElement', 'parseTemplate');
+$GLOBALS['TL_HOOKS']['parseTemplate'][] = ['AjaxReloadElement', 'parseTemplate'];

@@ -15,17 +15,19 @@
 /**
  * Register the classes
  */
-ClassLoader::addClasses(array
-(
+ClassLoader::addClasses(
+    [
 	// Classes
 	'AjaxReloadElement' => 'system/modules/zz_ajax_reload_element/classes/AjaxReloadElement.php',
-));
+    ]
+);
 
 
 /**
  * Register the templates
  */
-TemplateLoader::addFiles(array
-(
+TemplateLoader::addFiles(
+    [
 	'j_ajaxform' => 'system/modules/zz_ajax_reload_element/templates',
-));
+    ]
+);
