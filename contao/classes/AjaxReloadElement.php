@@ -8,9 +8,8 @@
  * @author  Richard Henkenjohann <richardhenkenjohann@googlemail.com>
  */
 
-
-use Haste\Http\Response\JsonResponse;
-use Haste\Input\Input;
+use SimpleAjax\Event\SimpleAjax as SimpleAjaxEvent;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 /**
@@ -46,7 +45,7 @@ class AjaxReloadElement extends \Controller
 		}
 
 		// Some elements use the auto_item which we need to pass
-		$strAutoItem = Input::getAutoItem('auto_item');
+		$strAutoItem = \Input::get('auto_item');
 
 		// cssID is parsed in all common templates
 		// Use cssID for our attribute
@@ -69,9 +68,11 @@ class AjaxReloadElement extends \Controller
 	 * * page: "id" (optionally, replace 'id' with the current page's id)
 	 * * auto_item: (an optional auto_item which will be set before fetching the element)
 	 */
-	public function getModuleOrContentElement()
+	public function getModuleOrContentElement(SimpleAjaxEvent $event)
 	{
-		if (!\Environment::get('isAjaxRequest') || Input::get('action') != 'reload-element')
+		if (!\Environment::get('isAjaxRequest')
+            || Input::get('action') != 'reload-element'
+            || true === $event->isIncludeFrontendExclusive())
 		{
 			return;
 		}

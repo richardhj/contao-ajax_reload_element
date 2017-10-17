@@ -18,8 +18,7 @@
 	"require": {
 		"php": ">=5.3",
 		"contao/core": "~3.2",
-		"codefog/contao-haste": "~4.11",
-		"richardhj/contao-simple-ajax": "~1.0"
+		"richardhj/contao-simple-ajax": "^1.2"
 	},
 	"extra": {
 		"contao": {
