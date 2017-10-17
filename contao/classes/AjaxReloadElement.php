@@ -1,11 +1,14 @@
 <?php
+
 /**
- * AjaxReloadElement extension for Contao Open Source CMS
+ * This file is part of richardhj/contao-ajax_reload_element.
  *
- * Copyright (c) 2016 Richard Henkenjohann
+ * Copyright (c) 2016-2017 Richard Henkenjohann
  *
- * @package AjaxReloadElement
- * @author  Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @package   richardhj/contao-ajax_reload_element
+ * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
 use SimpleAjax\Event\SimpleAjax as SimpleAjaxEvent;
