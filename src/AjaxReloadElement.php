@@ -18,6 +18,7 @@ use Contao\ContentModel;
 use Contao\Controller;
 use Contao\Environment;
 use Contao\FrontendTemplate;
+use Contao\FrontendUser;
 use Contao\Input;
 use Contao\Model;
 use Contao\Module;
@@ -104,10 +105,7 @@ class AjaxReloadElement
 
         // Authenticate front end user, e.g. for insert tags
         if (FE_USER_LOGGED_IN) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $this->import('FrontendUser', 'User');
-            /** @var \FrontendUser $this ->User */
-            $this->User->authenticate();
+            FrontendUser::getInstance()->authenticate();
         }
 
         // Load default language file
