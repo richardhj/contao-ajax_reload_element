@@ -23,9 +23,6 @@
                 url: 'SimpleAjaxFrontend.php?' + jQuery.param({
                     action: 'reload-element',
                     element: element.attr('data-ajax-reload-element'),
-                    auto_item: (typeof element.attr('data-ajax-reload-auto-item') !== typeof undefined)
-                        ? element.attr('data-ajax-reload-auto-item')
-                        : '',
                     page: options.page
                 }),
                 data: form.serialize()

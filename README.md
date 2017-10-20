@@ -24,8 +24,6 @@ If you are using jQuery you can use something like this. (Create a `j_….html5`
 				action: 'reload-element',
 				// The data- attribute is set automatically
 				element: element.attr('data-ajax-reload-element'),
-				// Some elements use an auto_item to fetch particular content. The auto_item will automatically set in a data- attribute
-				auto_item: (typeof element.attr('data-ajax-reload-auto-item') != typeof undefined) ? element.attr('data-ajax-reload-auto-item') : '',
 				// A page id can be set optionally. Necessary for elements that work with different language files
 				page: <?= $GLOBALS['objPage']->id ?>
 			}

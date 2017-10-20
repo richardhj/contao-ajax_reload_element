@@ -58,16 +58,12 @@ class AjaxReloadElement
             return;
         }
 
-        // Some elements use the auto_item which we need to pass
-        $autoItem = Input::get('auto_item');
-
         // cssID is parsed in all common templates
         // Use cssID for our attribute
         $template->cssID .= sprintf(
-            ' data-ajax-reload-element="%s::%u"%s%s',
+            ' data-ajax-reload-element="%s::%u"%s',
             $type,
             $template->id,
-            strlen($autoItem) ? sprintf(' data-ajax-reload-auto-item="%s"', $autoItem) : '',
             ($template->ajaxReloadFormSubmit) ? ' data-ajax-reload-form-submit=""' : ''
         );
     }
@@ -80,7 +76,6 @@ class AjaxReloadElement
      * * action: "reload-element"
      * * element: "ce::id" or "mod::id" (replace 'id' with the element's id)
      * * page: "id" (optionally, replace 'id' with the current page's id)
-     * * auto_item: (an optional auto_item which will be set before fetching the element)
      */
     public function getModuleOrContentElement(SimpleAjaxEvent $event)
     {
@@ -109,11 +104,6 @@ class AjaxReloadElement
 
         // Load default language file
         System::loadLanguageFile('default');
-
-        // Set a given auto_item to fetch the correct version of a module or content element
-        if (($autoItem = Input::get('auto_item'))) {
-            Input::setGet('auto_item', $autoItem);
-        }
 
         switch ($elementType) {
             case self::TYPE_MODULE:
