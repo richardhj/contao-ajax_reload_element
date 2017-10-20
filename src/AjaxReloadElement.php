@@ -35,7 +35,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class AjaxReloadElement
 {
 
-    const TYPE_MODULE = 'mod';
+    const TYPE_MODULE  = 'mod';
     const TYPE_CONTENT = 'ce';
 
     /**
@@ -90,18 +90,17 @@ class AjaxReloadElement
             return;
         }
 
-        global $objPage;
-
         // Set page object as it may be needed for the language e.g.
-        if (!$objPage && (int)Input::get('page')) {
-            $objPage = PageModel::findWithDetails((int)Input::get('page'));
+        $page = $GLOBALS['objPage'];
+        if (!$page && (int)Input::get('page')) {
+            $page = PageModel::findWithDetails((int)Input::get('page'));
         }
 
-        $GLOBALS['TL_LANGUAGE'] = (null !== $objPage) ? $objPage->language : $GLOBALS['TL_LANGUAGE'];
+        $GLOBALS['TL_LANGUAGE'] = (null !== $page) ? $page->language : $GLOBALS['TL_LANGUAGE'];
 
         list ($elementType, $elementId) = trimsplit('::', Input::get('element'));
-        $error = '';
-        $return   = '';
+        $error  = '';
+        $return = '';
 
         // Authenticate front end user, e.g. for insert tags
         if (FE_USER_LOGGED_IN) {
