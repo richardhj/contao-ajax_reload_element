@@ -86,7 +86,7 @@ class AjaxReloadElement
     {
         if (!Environment::get('isAjaxRequest')
             || Input::get('action') != 'reload-element'
-            || true === $event->isIncludeFrontendExclusive()) {
+            || false === $event->isIncludeFrontendExclusive()) {
             return;
         }
 
