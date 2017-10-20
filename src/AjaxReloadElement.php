@@ -13,7 +13,6 @@
 
 namespace Richardhj\Contao\Ajax;
 
-use Contao\ContentElement;
 use Contao\ContentModel;
 use Contao\Controller;
 use Contao\Environment;
@@ -21,7 +20,6 @@ use Contao\FrontendTemplate;
 use Contao\FrontendUser;
 use Contao\Input;
 use Contao\Model;
-use Contao\Module;
 use Contao\ModuleModel;
 use Contao\PageModel;
 use Contao\System;
@@ -51,10 +49,11 @@ class AjaxReloadElement
         }
 
         // Determine whether we have a module or a content element by the vars given at this point
-        if (Module::findClass($template->type)) {
-            $type = self::TYPE_MODULE;
-        } elseif (ContentElement::findClass($template->type)) {
+        if ('tl_article' === $template->ptable
+            && null !== ContentModel::findBy(['id=?', 'type=?'], [$template->id, $template->type])) {
             $type = self::TYPE_CONTENT;
+        } elseif (null !== ModuleModel::findBy(['id=?', 'type=?'], [$template->id, $template->type])) {
+            $type = self::TYPE_MODULE;
         } else {
             return;
         }
