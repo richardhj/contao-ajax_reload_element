@@ -1,5 +1,5 @@
 
-<script src="<?= TL_ASSETS_URL ?>system/modules/zz_ajax_reload_element/assets/jquery.ajax-reload-form.js"></script>
+<script src="<?= TL_ASSETS_URL ?>assets/ajax_reload_element/jquery.ajax-reload-form.js"></script>
 <script>
 	$(function () {
 		$(document).ajaxReloadForm({
