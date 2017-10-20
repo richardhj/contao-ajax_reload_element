@@ -179,6 +179,6 @@ class AjaxReloadElement
         }
 
         $response = new JsonResponse($data);
-        $response->send();
+        $event->setResponse($response);
     }
 }
