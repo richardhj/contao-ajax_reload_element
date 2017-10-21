@@ -16,9 +16,8 @@
  * Palettes
  */
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'allowAjaxReload';
-
 foreach ($GLOBALS['TL_DCA']['tl_module']['palettes'] as $name => $palette) {
-    if ($name == '__selector__') {
+    if ('__selector__' === $name) {
         continue;
     }
 
