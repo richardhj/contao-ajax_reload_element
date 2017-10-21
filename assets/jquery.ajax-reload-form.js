@@ -8,23 +8,28 @@
         }, options);
 
         $(document).on('submit', options.selector, function (event) {
-            var form = $(this);
-            if (form.attr('method').toLowerCase() !== 'post') {
+            var form, element, buildUrl;
+
+            form = $(this);
+            if ('post' !== form.attr('method').toLowerCase()) {
                 return;
             }
 
             event.preventDefault();
 
-            var element = $(this).closest('[class^="ce_"],[class^="mod_"]');
+            element = $(this).closest('[class^="ce_"],[class^="mod_"]');
             element.addClass(options.reloadCssClass);
+
+            buildUrl = function (base, params) {
+                var sep = (base.indexOf('?') > -1) ? '&' : '?';
+                return base + sep + params;
+            };
 
             $.ajax({
                 method: 'POST',
-                url: 'SimpleAjaxFrontend.php?' + jQuery.param({
-                    action: 'reload-element',
-                    element: element.attr('data-ajax-reload-element'),
-                    page: options.page
-                }),
+                url: buildUrl(location.href, jQuery.param({
+                    ajax_reload_element: element.attr('data-ajax-reload-element')
+                })),
                 data: form.serialize()
             })
                 .done(function (response, status, xhr) {

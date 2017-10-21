@@ -17,14 +17,10 @@ use Contao\ContentModel;
 use Contao\Controller;
 use Contao\Environment;
 use Contao\FrontendTemplate;
-use Contao\FrontendUser;
 use Contao\Input;
 use Contao\Model;
 use Contao\ModuleModel;
-use Contao\PageModel;
-use Contao\System;
 use Contao\Template;
-use SimpleAjax\Event\SimpleAjax as SimpleAjaxEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
@@ -68,43 +64,32 @@ class AjaxReloadElement
         );
     }
 
-
     /**
-     * Return the demanded frontend module or content element parsed as html string
+     * We check for an ajax request on the getPageLayout hook, which is one of the first hooks being called. If so, and
+     * the ajax request is directed to us, we send the generated module/content element as a JSON response.
      *
-     * Required GET data:
-     * * action: "reload-element"
-     * * element: "ce::id" or "mod::id" (replace 'id' with the element's id)
-     * * page: "id" (optionally, replace 'id' with the current page's id)
+     * @internal param PageModel $page
+     * @internal param LayoutModel $layout
+     * @internal param PageRegular $pageHandler
      */
-    public function getModuleOrContentElement(SimpleAjaxEvent $event)
+    public function processAjaxRequest()
     {
-        if (!Environment::get('isAjaxRequest')
-            || Input::get('action') != 'reload-element'
-            || false === $event->isIncludeFrontendExclusive()) {
+        if (false === Environment::get('isAjaxRequest')
+            || null === Input::get('ajax_reload_element')) {
             return;
         }
 
-        global $objPage;
-
-        // Set page object as it may be needed for the language e.g.
-        if (!$objPage && (int)Input::get('page')) {
-            $objPage = PageModel::findWithDetails((int)Input::get('page'));
-        }
-
-        $GLOBALS['TL_LANGUAGE'] = (null !== $objPage) ? $objPage->language : $GLOBALS['TL_LANGUAGE'];
-
-        list ($elementType, $elementId) = trimsplit('::', Input::get('element'));
+        list ($elementType, $elementId) = trimsplit('::', Input::get('ajax_reload_element'));
         $error  = '';
         $return = '';
 
-        // Authenticate front end user, e.g. for insert tags
-        if (FE_USER_LOGGED_IN) {
-            FrontendUser::getInstance()->authenticate();
-        }
+//        // Authenticate front end user, e.g. for insert tags
+//        if (FE_USER_LOGGED_IN) {
+//            FrontendUser::getInstance()->authenticate();
+//        }
 
-        // Load default language file
-        System::loadLanguageFile('default');
+//        // Load default language file
+//        System::loadLanguageFile('default');
 
         switch ($elementType) {
             case self::TYPE_MODULE:
@@ -113,13 +98,11 @@ class AjaxReloadElement
 
                 if (null === $module) {
                     $error = sprintf('Could not find module ID %s', $elementId);
-
                     continue;
                 }
 
                 if (!$module->allowAjaxReload) {
                     $error = sprintf('Module ID %u is not allowed to fetch', $elementId);
-
                     continue;
                 }
 
@@ -132,13 +115,11 @@ class AjaxReloadElement
 
                 if (null === $contentElement) {
                     $error = sprintf('Could not find content element ID %s', $elementId);
-
                     continue;
                 }
 
                 if (!$contentElement->allowAjaxReload) {
                     $error = sprintf('Content element ID %u is not allowed to fetch', $elementId);
-
                     continue;
                 }
 
@@ -160,7 +141,7 @@ class AjaxReloadElement
 
         $data = [];
 
-        if ($error) {
+        if ('' !== $error) {
             $data['status'] = 'error';
             $data['error']  = $error;
         } else {
@@ -169,6 +150,7 @@ class AjaxReloadElement
         }
 
         $response = new JsonResponse($data);
-        $event->setResponse($response);
+        $response->send();
+        exit;
     }
 }
