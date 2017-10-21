@@ -7,36 +7,37 @@ With AjaxReloadElement you have the possibility to fetch a particular front end 
 If you are using jQuery you can use something like this. (Create a `j_….html5` template and include it in the layout.)
 ```html
 <script>
-	$(".mod_my_module a.reloadThisElementOnClick").click(function (event) {
+    $(".mod_my_module a.reloadThisElementOnClick").click(function (event) {
+        var element;
+        
+        // Don't follow the link
+        event.preventDefault();
+        
+        // This is the elements div container like ".mod_my_module"
+        element = $(this).closest('[class^="ce_"],[class^="mod_"]');
+        // Add a css class to this element. An overlay and spinning icon can be set via css
+        element.addClass('ajax-reload-element-overlay');
+        
+        $.ajax({
+            method: 'POST',
+            url: location.href,
+            data: {
+                // The data- attribute is set automatically
+                ajax_reload_element: element.attr('data-ajax-reload-element')
+            }
+        })
+            .done(function (response, status, xhr) {
+                if ('ok' === response.status) {
+                    // Replace the DOM
+                    element.replaceWith(response.html);
+                }
+                else {
+                    // Reload the page as fallback
+                    location.reload();
+                }
+            });
+    });
 
-		// Don't follow the link
-		event.preventDefault();
-
-		// Var containing the elements div container like ".mod_my_module"
-		var element = $(this).closest('[class^="ce_"],[class^="mod_"]');
-		// Add a css class to this element. An overlay and spinning icon can be set via css
-		element.addClass('ajax-reload-element-overlay');
-
-		$.ajax({
-			method: 'GET',
-			url: location.href,
-			data: {
-				// The data- attribute is set automatically
-				ajax_reload_element: element.attr('data-ajax-reload-element')
-			}
-		})
-			.done(function (response, status, xhr) {
-				
-				if ('ok' === response.status) {
-					// Replace the DOM
-					element.replaceWith(response.html);
-				}
-				else {
-					// Reload the page as fallback
-					location.reload();
-				}
-			});
-	});
 </script>
 ```
 
