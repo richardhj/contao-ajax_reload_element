@@ -75,11 +75,13 @@ class AjaxReloadElement
     public function processAjaxRequest()
     {
         if (false === Environment::get('isAjaxRequest')
-            || null === Input::get('ajax_reload_element')) {
+            || !(null !== ($paramElement = Input::get('ajax_reload_element'))
+                 || null !== ($paramElement = Input::post('ajax_reload_element')))
+        ) {
             return;
         }
 
-        list ($elementType, $elementId) = trimsplit('::', Input::get('ajax_reload_element'));
+        list ($elementType, $elementId) = trimsplit('::', $paramElement);
         $error  = '';
         $return = '';
 
