@@ -19,18 +19,15 @@ If you are using jQuery you can use something like this. (Create a `j_….html5`
 
 		$.ajax({
 			method: 'GET',
-			url: 'SimpleAjaxFrontend.php',
+			url: location.href,
 			data: {
-				action: 'reload-element',
 				// The data- attribute is set automatically
-				element: element.attr('data-ajax-reload-element'),
-				// A page id can be set optionally. Necessary for elements that work with different language files
-				page: <?= $GLOBALS['objPage']->id ?>
+				ajax_reload_element: element.attr('data-ajax-reload-element')
 			}
 		})
 			.done(function (response, status, xhr) {
 				
-				if (response.status == 'ok') {
+				if ('ok' === response.status) {
 					// Replace the DOM
 					element.replaceWith(response.html);
 				}
