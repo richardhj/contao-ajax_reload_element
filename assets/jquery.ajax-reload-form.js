@@ -7,7 +7,7 @@
         }, options);
 
         $(document).on('submit', options.selector, function (event) {
-            var form, element, buildUrl;
+            var buildUrl, element, form, formAction;
 
             form = $(this);
             if ('post' !== form.attr('method').toLowerCase()) {
@@ -19,6 +19,7 @@
             element = $(this).closest('[class^="ce_"],[class^="mod_"]');
             element.addClass(options.reloadCssClass);
 
+            formAction = form.attr('action') ? form.attr('action') : location.href;
             buildUrl = function (base, params) {
                 var sep = (base.indexOf('?') > -1) ? '&' : '?';
                 return base + sep + params;
@@ -26,7 +27,7 @@
 
             $.ajax({
                 method: 'POST',
-                url: buildUrl(location.href, jQuery.param({
+                url: buildUrl(formAction, jQuery.param({
                     ajax_reload_element: element.attr('data-ajax-reload-element')
                 })),
                 data: form.serialize()
