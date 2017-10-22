@@ -23,6 +23,7 @@
   "require": {
     "php": "^5.5 || ^7.0",
     "contao/core": "^3.2",
+    "contao-community-alliance/url-builder": "^1.2",
     "symfony/http-foundation": "^3.3"
   },
   "autoload": {

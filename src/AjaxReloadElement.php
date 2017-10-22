@@ -21,6 +21,7 @@ use Contao\Input;
 use Contao\Model;
 use Contao\ModuleModel;
 use Contao\Template;
+use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
@@ -77,6 +78,11 @@ class AjaxReloadElement
         list ($elementType, $elementId) = trimsplit('::', $paramElement);
         $error  = '';
         $return = '';
+
+        // Remove the get parameter from the url
+        $requestUrl = UrlBuilder::fromUrl(Environment::get('request'));
+        $requestUrl->unsetQueryParameter('ajax_reload_element');
+        Environment::set('request', $requestUrl->getUrl());
 
 //        // Authenticate front end user, e.g. for insert tags
 //        if (FE_USER_LOGGED_IN) {
