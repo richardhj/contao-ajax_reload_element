@@ -84,14 +84,6 @@ class AjaxReloadElement
         $requestUrl->unsetQueryParameter('ajax_reload_element');
         Environment::set('request', $requestUrl->getUrl());
 
-//        // Authenticate front end user, e.g. for insert tags
-//        if (FE_USER_LOGGED_IN) {
-//            FrontendUser::getInstance()->authenticate();
-//        }
-
-//        // Load default language file
-//        System::loadLanguageFile('default');
-
         switch ($elementType) {
             case self::TYPE_MODULE:
                 /** @type Model $module */
