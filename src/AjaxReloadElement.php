@@ -45,20 +45,7 @@ class AjaxReloadElement
         }
 
         // Determine whether we have a module or a content element by the vars given at this point
-        if ('tl_article' === $template->ptable
-            && null !== ContentModel::findBy(
-                ['tl_content.id=?', 'tl_content.type=?'],
-                [$template->id, $template->type]
-            )) {
-            $type = self::TYPE_CONTENT;
-        } elseif (null !== ModuleModel::findBy(
-                ['tl_module.id=?', 'tl_module.type=?'],
-                [$template->id, $template->type]
-            )) {
-            $type = self::TYPE_MODULE;
-        } else {
-            return;
-        }
+        $type = ('tl_article' === $template->ptable) ? self::TYPE_CONTENT : self::TYPE_MODULE;
 
         // cssID is parsed in all common templates
         // Use cssID for our attribute
