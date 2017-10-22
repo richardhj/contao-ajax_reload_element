@@ -1,10 +1,21 @@
-[![Latest Version on Packagist](http://img.shields.io/packagist/v/richardhj/contao-ajax_reload_element.svg)](https://packagist.org/packages/richardhj/contao-ajax_reload_element)
-[![Dependency Status](https://www.versioneye.com/php/richardhj:contao-ajax_reload_element/badge.svg)](https://www.versioneye.com/php/richardhj:contao-ajax_reload_element)
-
 # AjaxReloadElement for Contao Open Source CMS
 
-With AjaxReloadElement you have the possibility to fetch a particular front end module or content element via ajax. All you have to do is to tick the box „allow ajax reload“ for the module/element and include a JavaScript.
-If you are using jQuery you can use something like this. (Create a `j_….html5` template and include it in the layout.)
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]]()
+[![Dependency Status][ico-dependencies]][link-dependencies]
+
+AjaxReloadElement gives you the possibility to fetch a particular front end module or content element via an ajax
+request.
+
+## Usage
+
+You need to tick the box «Allow ajax reload» for the module/element in the back end input mask and include a JavaScript.
+
+### Basic/custom usage
+
+If you are using jQuery you can use something like this. Modify this code snippet for your purposes. (Create a 
+`j_myajaxreload.html5` template and include it in the layout.)
+
 ```html
 <script>
     $(".mod_my_module a.reloadThisElementOnClick").click(function (event) {
@@ -41,10 +52,73 @@ If you are using jQuery you can use something like this. (Create a `j_….html5`
 </script>
 ```
 
-## Out of the box: Ajax forms
-For all modules that integrate forms you can tick the box "Update a form via ajax". Additionally the template "j_ajaxforms" has to be included in the page layout. Instead of reloading the entire page, forms will update itself.
-This feature is supported for all Contao core forms like change password, personal data, login form etc and forms from third partys that are programmed in Contao style.
+### Ajax forms
 
-### Demonstration
-A redirect processed in the login form will be followed too.
+This one comes out of the box.
+
+For all modules that integrate forms you can tick the box «Update a form via ajax». Additionally the template
+"j_ajaxforms" has to be included in the page layout. Instead of reloading the entire page, forms will update itself.
+
+This feature is supported for all Contao core forms like *change password,* *personal data,* *login form* etc. and forms
+from third party apps that are programmed in Contao style.
+
+#### Demonstration
+
+When the login was sucessfull, the redirect processed in the login form will be followed.
+
 ![Demonstration with Contao's core login form](https://cloud.githubusercontent.com/assets/1284725/15799602/20d59fc8-2a62-11e6-8c22-2d1d971aeb20.gif)
+
+### Modal editing
+
+This one is a bit more advanced.
+
+First of all, this is the list of requirements for this plugin:
+
+1. [jquery-ui.js](https://jqueryui.com/download/) (with at least the `Dialog` widget)
+2. [jquery.dialogOptions.js](https://github.com/jasonday/jQuery-UI-Dialog-extended) (can be optional, if you adjust the script)
+3. [jQuery.modalEditing.js](https://gist.github.com/richardhj/27345239b7326e98658a8a4dff599736) (the jQuery plugin written for this extension)
+
+Then we create a template called `j_modal_editing.js` and include it in the page layout:
+
+```php
+<?php
+
+$GLOBALS['TL_JAVASCRIPT'][] = 'files/js/jquery-ui.min.js';
+$GLOBALS['TL_JAVASCRIPT'][] = 'files/js/jquery.dialogOptions.js';
+$GLOBALS['TL_JAVASCRIPT'][] = 'files/js/jquery.modal-editing.js';
+
+?>
+
+<script>
+    $(function () {
+        $(document).modalEditing({
+            container: '.mm-list-participants',
+            trigger: '.item a',
+            element: 'mod::24',
+            closeText: '<?= Haste\Util\Format::dcaLabel('default', 'close'); ?>',
+            title: '<?= Haste\Util\Format::dcaLabel('default', 'editElement'); ?>'
+        });
+        $(document).modalEditing({
+            container: '.mm-list-participants',
+            trigger: '.addUrl a',
+            element: 'mod::24',
+            closeText: '<?= Haste\Util\Format::dcaLabel('default', 'close'); ?>',
+            title: '<?= Haste\Util\Format::dcaLabel('default', 'addNewParticipant'); ?>'
+        });
+    });
+</script>
+```
+
+This code snippet is tailored to a MetaModel frontend editing. You set the id of the editing form as the `element`
+option. In addition, you enable the ajax form as stated above (see paragraph «Ajax forms»).
+
+#### Demonstration
+
+![Demonstration of the modal editing script](https://user-images.githubusercontent.com/1284725/31863229-4013be20-b74b-11e7-890b-d1fa5f105f11.gif)
+
+[ico-version]: https://img.shields.io/packagist/v/richardhj/contao-ajax_reload_element.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-LGPL-brightgreen.svg?style=flat-square
+[ico-dependencies]: https://www.versioneye.com/php/richardhj:contao-ajax_reload_element/badge.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/richardhj/contao-ajax_reload_element
+[link-dependencies]: https://www.versioneye.com/php/richardhj:contao-ajax_reload_element
