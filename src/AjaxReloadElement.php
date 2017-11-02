@@ -13,6 +13,7 @@
 
 namespace Richardhj\Contao\Ajax;
 
+use Contao\ArticleModel;
 use Contao\ContentModel;
 use Contao\Controller;
 use Contao\Environment;
@@ -33,6 +34,7 @@ class AjaxReloadElement
 
     const TYPE_MODULE  = 'mod';
     const TYPE_CONTENT = 'ce';
+    const TYPE_ARTICLE = 'art';
 
     /**
      * Add the html attribute to allowed elements
@@ -45,8 +47,11 @@ class AjaxReloadElement
             return;
         }
 
-        // Determine whether we have a module or a content element by the vars given at this point
-        $type = ('tl_article' === $template->ptable) ? self::TYPE_CONTENT : self::TYPE_MODULE;
+        // Determine whether we have a module, a content element or an article by the vars given at this point
+        $type = ('article' === $template->type)
+            ? self::TYPE_ARTICLE
+            : (('tl_article' === $template->ptable) ? self::TYPE_CONTENT : self::TYPE_MODULE);
+
 
         // cssID is parsed in all common templates
         // Use cssID for our attribute
@@ -117,6 +122,23 @@ class AjaxReloadElement
                 }
 
                 $return = Controller::getContentElement($contentElement);
+                break;
+
+            case self::TYPE_ARTICLE:
+                /** @type Model $article */
+                $article = ArticleModel::findByPk($elementId);
+
+                if (null === $article) {
+                    $error = sprintf('Could not find article ID %s', $elementId);
+                    continue;
+                }
+
+                if (!$article->allowAjaxReload) {
+                    $error = sprintf('Article ID %u is not allowed to fetch', $elementId);
+                    continue;
+                }
+
+                $return = Controller::getArticle($article);
                 break;
 
             default:
