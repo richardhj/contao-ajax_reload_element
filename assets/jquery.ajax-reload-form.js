@@ -2,7 +2,7 @@
 (function ($) {
     $.fn.ajaxReloadForm = function (options) {
         options = $.extend({
-            selector: 'div[data-ajax-reload-form-submit] form',
+            selector: '*[data-ajax-reload-form-submit] form',
             reloadCssClass: 'ajax-reload-element-overlay'
         }, options);
 
