@@ -1,4 +1,4 @@
-/* AjaxReloadElement for Contao Open Source CMS, (c) 2016-2017 Richard Henkenjohann */
+/* This file is part of richardhj/contao-ajax_reload_element, (c) 2016-2017 Richard Henkenjohann */
 (function ($) {
     $.fn.ajaxReloadForm = function (options) {
         options = $.extend({
@@ -7,36 +7,35 @@
         }, options);
 
         $(document).on('submit', options.selector, function (event) {
-            var buildUrl, element, form, formAction;
-
-            form = $(this);
-
+            var buildUrl, $element, $form, formAction;
             event.preventDefault();
 
-            element = $(this).closest('[class^="ce_"],[class^="mod_"]');
-            element.addClass(options.reloadCssClass);
+            $form = $(this);
+            $element = $(this).closest('[class^="ce_"],[class^="mod_"]');
+            $element.addClass(options.reloadCssClass);
 
-            formAction = form.attr('action') ? form.attr('action') : location.href;
+            formAction = $form.attr('action') ? $form.attr('action') : location.href;
             buildUrl = function (base, params) {
                 var sep = (base.indexOf('?') > -1) ? '&' : '?';
                 return base + sep + params;
             };
 
             $.ajax({
-                method: form.attr('method'),
+                method: $form.attr('method'),
                 url: buildUrl(formAction, jQuery.param({
-                    ajax_reload_element: element.attr('data-ajax-reload-element')
+                    ajax_reload_element: $element.attr('data-ajax-reload-element')
                 })),
-                data: form.serialize()
+                data: $form.serialize()
             })
                 .done(function (response, status, xhr) {
                     if ('nocontent' !== status) {
                         if ('ok' === response.status) {
                             // Use replaceAll instead of replaceWith, so we can fetch the updated action attribute below
-                            element = $(response.html).replaceAll(element);
+                            $element = $(response.html).replaceAll($element);
 
-                            if ('get' === form.attr('method').toLowerCase()) {
-                                window.history.pushState({}, '', window.location.protocol + '//' + window.location.host + '/' + element.find('form:first').attr('action'));
+                            if ('get' === $form.attr('method').toLowerCase()) {
+                                // Update the current url
+                                window.history.pushState({}, '', window.location.protocol + '//' + window.location.host + '/' + $element.find('form:first').attr('action'));
                             }
                         }
                         else {
@@ -46,8 +45,8 @@
                         // The element processes a reload
                         if (xhr.getResponseHeader('X-Ajax-Location').indexOf(this.url) >= 0) {
                             // Trigger new ajax request
-                            form.find('[name=FORM_SUBMIT]').val('');
-                            form.submit();
+                            $form.find('[name=FORM_SUBMIT]').val('');
+                            $form.submit();
                         }
                         // The element processes a redirect
                         else {
