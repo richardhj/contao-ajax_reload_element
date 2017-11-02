@@ -10,9 +10,6 @@
             var buildUrl, element, form, formAction;
 
             form = $(this);
-            if ('post' !== form.attr('method').toLowerCase()) {
-                return;
-            }
 
             event.preventDefault();
 
@@ -26,7 +23,7 @@
             };
 
             $.ajax({
-                method: 'POST',
+                method: form.attr('method'),
                 url: buildUrl(formAction, jQuery.param({
                     ajax_reload_element: element.attr('data-ajax-reload-element')
                 })),
@@ -35,7 +32,12 @@
                 .done(function (response, status, xhr) {
                     if ('nocontent' !== status) {
                         if ('ok' === response.status) {
-                            element.replaceWith(response.html);
+                            // Use replaceAll instead of replaceWith, so we can fetch the updated action attribute below
+                            element = $(response.html).replaceAll(element);
+
+                            if ('get' === form.attr('method').toLowerCase()) {
+                                window.history.pushState({}, '', window.location.protocol + '//' + window.location.host + '/' + element.find('form:first').attr('action'));
+                            }
                         }
                         else {
                             location.reload();
