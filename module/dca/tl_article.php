@@ -15,9 +15,7 @@
 /**
  * Palettes
  */
-$GLOBALS['TL_DCA']['tl_article']['palettes']['__selector__'][]     = 'allowAjaxReload';
-$GLOBALS['TL_DCA']['tl_article']['palettes']['default']            .= ',allowAjaxReload';
-$GLOBALS['TL_DCA']['tl_article']['subpalettes']['allowAjaxReload'] = 'ajaxReloadFormSubmit';
+$GLOBALS['TL_DCA']['tl_article']['palettes']['default'] .= ',allowAjaxReload';
 
 /**
  * Fields
@@ -26,8 +24,7 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['allowAjaxReload'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_article']['allowAjaxReload'],
     'inputType' => 'checkbox',
     'eval'      => [
-        'submitOnChange' => true,
-        'tl_class'       => 'clr w50 m12',
+        'tl_class' => 'clr w50 m12',
     ],
     'sql'       => "char(1) NOT NULL default ''",
 ];
