@@ -17,6 +17,6 @@ use Richardhj\Contao\Ajax\AjaxReloadElement;
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['ERR']['ajaxReloadElement'][AjaxReloadElement::ERROR_ELEMENT_NOT_FOUND]           = 'Could not find element %s.';
-$GLOBALS['TL_LANG']['ERR']['ajaxReloadElement'][AjaxReloadElement::ERROR_ELEMENT_AJAX_FETCH_DISABLED] = '%s ID %u is not allowed to fetch.';
-$GLOBALS['TL_LANG']['ERR']['ajaxReloadElement'][AjaxReloadElement::ERROR_ELEMENT_TYPE_UNKNOWN]        = 'Could not determine whether the element is a module or content element';
+$GLOBALS['TL_LANG']['ERR']['ajaxReloadElement'][AjaxReloadElement::ERROR_ELEMENT_NOT_FOUND]        = 'Could not find element %s.';
+$GLOBALS['TL_LANG']['ERR']['ajaxReloadElement'][AjaxReloadElement::ERROR_ELEMENT_AJAX_NOT_ALLOWED] = '%s ID %u is not allowed to fetch.';
+$GLOBALS['TL_LANG']['ERR']['ajaxReloadElement'][AjaxReloadElement::ERROR_ELEMENT_TYPE_UNKNOWN]     = 'Could not determine whether the element is a module or content element';

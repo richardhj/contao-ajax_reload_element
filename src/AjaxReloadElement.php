@@ -37,9 +37,9 @@ class AjaxReloadElement
     const TYPE_CONTENT = 'ce';
     const TYPE_ARTICLE = 'art';
 
-    const ERROR_ELEMENT_NOT_FOUND           = 1;
-    const ERROR_ELEMENT_AJAX_FETCH_DISABLED = 2;
-    const ERROR_ELEMENT_TYPE_UNKNOWN        = 3;
+    const ERROR_ELEMENT_NOT_FOUND        = 1;
+    const ERROR_ELEMENT_AJAX_NOT_ALLOWED = 2;
+    const ERROR_ELEMENT_TYPE_UNKNOWN     = 3;
 
     /**
      * Add the html attribute to allowed elements
@@ -163,7 +163,7 @@ class AjaxReloadElement
         $elementType = (new ReflectionClass($model))->getShortName();
         $elementType = substr($elementType, 0, -5);
 
-        $this->terminateWithError(self::ERROR_ELEMENT_AJAX_FETCH_DISABLED, [$elementType, $model->id]);
+        $this->terminateWithError(self::ERROR_ELEMENT_AJAX_NOT_ALLOWED, [$elementType, $model->id]);
     }
 
     /**
