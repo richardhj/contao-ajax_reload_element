@@ -7,7 +7,7 @@
     "ajaxform",
     "ajax reload"
   ],
-  "type": "contao-module",
+  "type": "contao-bundle",
   "license": "LGPL-3.0+",
   "authors": [
     {
@@ -22,21 +22,20 @@
   },
   "require": {
     "php": "^5.5 || ^7.0",
-    "contao/core-bundle": "^3.2 || ^4.3",
-    "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
+    "contao/core-bundle": "^4.4",
+    "contao-community-alliance/composer-plugin": "^3.0",
     "contao-community-alliance/url-builder": "^1.2",
     "symfony/http-foundation": "^3.3"
   },
   "autoload": {
     "psr-4": {
-      "Richardhj\\Contao\\Ajax\\": "src/"
+      "Richardhj\\ContaoAjaxReloadElementBundle\\": "src/"
     }
   },
   "extra": {
     "contao": {
       "sources": {
-        "assets": "assets/ajax_reload_element",
-        "module": "system/modules/zz_ajax_reload_element"
+        "assets": "assets/ajax_reload_element"
       }
     }
   }

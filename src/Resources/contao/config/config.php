@@ -12,11 +12,10 @@
  */
 
 
-use Richardhj\Contao\Ajax\AjaxReloadElement;
-
-
 /**
  * Hooks
+ *
+ * Waiting for Contao 4.5 (see contao/core-bundle#1094) to get rid of this file
  */
-$GLOBALS['TL_HOOKS']['parseTemplate'][] = [AjaxReloadElement::class, 'parseTemplate'];
-$GLOBALS['TL_HOOKS']['getPageLayout'][] = [AjaxReloadElement::class, 'processAjaxRequest'];
+$GLOBALS['TL_HOOKS']['parseTemplate'][] = ['richardhj.contao_ajax_reload_element.parse_template_listener', 'onParseElement'];
+$GLOBALS['TL_HOOKS']['getPageLayout'][] = ['richardhj.contao_ajax_reload_element.get_page_layout_listener', 'onGetPageLayout'];
