@@ -1,0 +1,9 @@
+services:
+  richardhj.contao_ajax_reload_element.parse_template_listener:
+    class: Richardhj\ContaoAjaxReloadElementBundle\EventListener\AjaxReloadElementListener
+    tags:
+      - { name: 'contao.hook', hook: 'parseTemplate', method: 'onParseTemplate' }
+  richardhj.contao_ajax_reload_element.get_page_layout_listener:
+    class: Richardhj\ContaoAjaxReloadElementBundle\EventListener\AjaxReloadElementListener
+    tags:
+      - { name: 'contao.hook', hook: 'getPageLayout', method: 'onGetPageLayout' }

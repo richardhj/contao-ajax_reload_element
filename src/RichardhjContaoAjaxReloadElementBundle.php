@@ -11,12 +11,14 @@
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\ContaoAjaxReloadElementBundle;
+
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Register the templates
+ * The Bundle class.
  */
-TemplateLoader::addFiles(
-    [
-	'j_ajaxform' => 'system/modules/zz_ajax_reload_element/templates',
-    ]
-);
+class RichardhjContaoAjaxReloadElementBundle extends Bundle
+{
+
+}

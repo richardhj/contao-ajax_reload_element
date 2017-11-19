@@ -11,7 +11,7 @@
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
-namespace Richardhj\Contao\Ajax;
+namespace Richardhj\ContaoAjaxReloadElementBundle\EventListener;
 
 use Contao\ArticleModel;
 use Contao\ContentModel;
@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Class AjaxReloadElement
  */
-class AjaxReloadElement
+class AjaxReloadElementListener
 {
 
     const TYPE_MODULE  = 'mod';
@@ -46,7 +46,7 @@ class AjaxReloadElement
      *
      * @param Template $template
      */
-    public function parseTemplate($template)
+    public function onParseTemplate($template)
     {
         if (!($template instanceof FrontendTemplate) || !$template->allowAjaxReload) {
             return;
@@ -76,7 +76,7 @@ class AjaxReloadElement
      * @internal param LayoutModel $layout
      * @internal param PageRegular $pageHandler
      */
-    public function processAjaxRequest()
+    public function onGetPageLayout()
     {
         if (false === Environment::get('isAjaxRequest')
             || !(null !== ($paramElement = Input::get('ajax_reload_element'))
