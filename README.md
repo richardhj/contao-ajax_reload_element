@@ -7,6 +7,8 @@
 AjaxReloadElement gives you the possibility to fetch a particular front end module or content element via an ajax
 request.
 
+**Scroll down to see some nice animated screenshots 😎**
+
 ## Usage
 
 You need to tick the box «Allow ajax reload» for the module/element in the back end input mask and include a JavaScript.
@@ -16,6 +18,8 @@ You need to tick the box «Allow ajax reload» for the module/element in the bac
 If you are using jQuery you can use something like this. Modify this code snippet for your purposes. (Create a 
 `j_myajaxreload.html5` template and include it in the layout.)
 
+This code snippet will replace the HTML node `.mod_my_module` when clicking on `a.reloadThisElementOnClick`.
+
 ```html
 <script>
     $(".mod_my_module a.reloadThisElementOnClick").click(function (event) {
@@ -24,7 +28,7 @@ If you are using jQuery you can use something like this. Modify this code snippe
         // Don't follow the link
         event.preventDefault();
         
-        // This is the elements div container like ".mod_my_module"
+        // This is the elements div container like ".mod_my_module". "Allow ajax reload" has to be ticket for this element in the backend
         element = $(this).closest('[class^="ce_"],[class^="mod_"]');
         // Add a css class to this element. An overlay and spinning icon can be set via css
         element.addClass('ajax-reload-element-overlay');
@@ -76,7 +80,7 @@ First of all, this is the list of requirements for this plugin:
 
 1. [jquery-ui.js](https://jqueryui.com/download/) (with at least the `Dialog` widget)
 2. [jquery.dialogOptions.js](https://github.com/jasonday/jQuery-UI-Dialog-extended) (can be optional, if you adjust the script)
-3. [jQuery.modalEditing.js](https://gist.github.com/richardhj/27345239b7326e98658a8a4dff599736) (the jQuery plugin written for this extension)
+3. [jQuery.modal-editing.js](https://gist.github.com/richardhj/27345239b7326e98658a8a4dff599736) (the jQuery plugin written for this extension)
 
 Then we create a template called `j_modal_editing.js` and include it in the page layout:
 
@@ -95,15 +99,15 @@ $GLOBALS['TL_JAVASCRIPT'][] = 'files/js/jquery.modal-editing.js';
             container: '.mm-list-participants',
             trigger: '.item a',
             element: 'mod::24',
-            closeText: '<?= Haste\Util\Format::dcaLabel('default', 'close'); ?>',
-            title: '<?= Haste\Util\Format::dcaLabel('default', 'editElement'); ?>'
+            closeText: 'Schließen', /* If you want to internationalize the label, you can use (with Haste installed): <?= Haste\Util\Format::dcaLabel('default', 'close'); ?>*/
+            title: 'Edit element'
         });
         $(document).modalEditing({
             container: '.mm-list-participants',
             trigger: '.addUrl a',
             element: 'mod::24',
-            closeText: '<?= Haste\Util\Format::dcaLabel('default', 'close'); ?>',
-            title: '<?= Haste\Util\Format::dcaLabel('default', 'addNewParticipant'); ?>'
+            closeText: 'Close',
+            title: 'Add element'
         });
     });
 </script>
