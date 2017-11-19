@@ -33,6 +33,7 @@
     }
   },
   "extra": {
+    "contao-manager-plugin": "Richardhj\\ContaoAjaxReloadElementBundle\\ContaoManager\\Plugin",
     "contao": {
       "sources": {
         "assets": "assets/ajax_reload_element"
