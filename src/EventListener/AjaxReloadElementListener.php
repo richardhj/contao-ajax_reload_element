@@ -15,7 +15,7 @@ namespace Richardhj\ContaoAjaxReloadElementBundle\EventListener;
 
 use Contao\ArticleModel;
 use Contao\ContentModel;
-use Contao\Controller;
+use Contao\Controller as ContaoController;
 use Contao\Environment;
 use Contao\FrontendTemplate;
 use Contao\Input;
@@ -98,17 +98,17 @@ class AjaxReloadElementListener
         switch ($elementType) {
             case self::TYPE_MODULE:
                 $element       = ModuleModel::findByPk($elementId);
-                $elementParser = [Controller::class, 'getFrontendModule'];
+                $elementParser = [ContaoController::class, 'getFrontendModule'];
                 break;
 
             case self::TYPE_CONTENT:
                 $element       = ContentModel::findByPk($elementId);
-                $elementParser = [Controller::class, 'getContentElement'];
+                $elementParser = [ContaoController::class, 'getContentElement'];
                 break;
 
             case self::TYPE_ARTICLE:
                 $element       = ArticleModel::findByPk($elementId);
-                $elementParser = [Controller::class, 'getArticle'];
+                $elementParser = [ContaoController::class, 'getArticle'];
                 break;
 
             default:
@@ -125,9 +125,9 @@ class AjaxReloadElementListener
         $return = call_user_func($elementParser, $element);
 
         // Replace insert tags and then re-replace the request_token tag in case a form element has been loaded via insert tag
-        $return = Controller::replaceInsertTags($return, false);
+        $return = ContaoController::replaceInsertTags($return, false);
         $return = str_replace(['{{request_token}}', '[{]', '[}]'], [REQUEST_TOKEN, '{{', '}}'], $return);
-        $return = Controller::replaceDynamicScriptTags($return); // see contao/core#4203
+        $return = ContaoController::replaceDynamicScriptTags($return); // see contao/core#4203
 
         $data['status'] = 'ok';
         $data['html']   = $return;
