@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 /**
  * This is the Bundle extension.
  */
-class AjaxReloadElementExtension extends Extension
+class RichardhjContaoAjaxReloadElementExtension extends Extension
 {
     /**
      * {@inheritDoc}
