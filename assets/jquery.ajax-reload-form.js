@@ -27,7 +27,7 @@
                 })),
                 data: $form.serialize()
             })
-                .done(function (response, status, xhr) {
+                .done(function (response, status) {
                     if ('nocontent' !== status) {
                         if ('ok' === response.status) {
                             // Use replaceAll instead of replaceWith, so we can fetch the updated action attribute below
@@ -41,17 +41,23 @@
                         else {
                             location.reload();
                         }
-                    } else {
-                        // The element processes a reload
+                    }
+                })
+                .fail(function (xhr) {
+                    if (302 === xhr.status) {
                         if (xhr.getResponseHeader('X-Ajax-Location').indexOf(this.url) >= 0) {
+                            // The element processes a reload
                             // Trigger new ajax request
                             $form.find('[name=FORM_SUBMIT]').val('');
                             $form.submit();
                         }
-                        // The element processes a redirect
                         else {
+                            // The element processes a redirect
                             window.location.replace(xhr.getResponseHeader('X-Ajax-Location'));
                         }
+                    }
+                    else {
+                        location.reload();
                     }
                 });
         });
