@@ -22,7 +22,8 @@
   },
   "require": {
     "php": "^5.5 || ^7.0",
-    "contao/core": "^3.2",
+    "contao/core-bundle": "^3.2 || ^4.3",
+    "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
     "contao-community-alliance/url-builder": "^1.2",
     "symfony/http-foundation": "^3.3"
   },
