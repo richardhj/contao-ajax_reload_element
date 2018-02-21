@@ -3,11 +3,11 @@
 /**
  * This file is part of richardhj/contao-ajax_reload_element.
  *
- * Copyright (c) 2016-2017 Richard Henkenjohann
+ * Copyright (c) 2016-2018 Richard Henkenjohann
  *
  * @package   richardhj/contao-ajax_reload_element
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
- * @copyright 2016-2017 Richard Henkenjohann
+ * @copyright 2016-2018 Richard Henkenjohann
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
@@ -64,7 +64,7 @@ class AjaxReloadElementListener
             ' data-ajax-reload-element="%s::%u"%s',
             $type,
             $template->id,
-            ($template->ajaxReloadFormSubmit) ? ' data-ajax-reload-form-submit=""' : ''
+            $template->ajaxReloadFormSubmit ? ' data-ajax-reload-form-submit=""' : ''
         );
     }
 
@@ -122,7 +122,7 @@ class AjaxReloadElementListener
         // Remove login error from session as it is not done in the module class anymore (see contao/core#7824)
         unset($_SESSION['LOGIN_ERROR']);
 
-        $return = call_user_func($elementParser, $element);
+        $return = $elementParser($element);
 
         // Replace insert tags and then re-replace the request_token tag in case a form element has been loaded via insert tag
         $return = ContaoController::replaceInsertTags($return, false);

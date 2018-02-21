@@ -3,11 +3,11 @@
 /**
  * This file is part of richardhj/contao-ajax_reload_element.
  *
- * Copyright (c) 2016-2017 Richard Henkenjohann
+ * Copyright (c) 2016-2018 Richard Henkenjohann
  *
  * @package   richardhj/contao-ajax_reload_element
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
- * @copyright 2016-2017 Richard Henkenjohann
+ * @copyright 2016-2018 Richard Henkenjohann
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
@@ -23,8 +23,14 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 class RichardhjContaoAjaxReloadElementExtension extends Extension
 {
+
     /**
-     * {@inheritDoc}
+     * Loads a specific configuration.
+     *
+     * @param array            $configs
+     * @param ContainerBuilder $container
+     *
+     * @throws \Exception If something went wrong.
      */
     public function load(array $configs, ContainerBuilder $container)
     {
