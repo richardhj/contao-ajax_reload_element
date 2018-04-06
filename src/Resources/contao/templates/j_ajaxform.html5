@@ -3,5 +3,5 @@
 <script>
     $(function () {
         $(document).ajaxReloadForm({});
-    });
+    }(jQuery));
 </script>
