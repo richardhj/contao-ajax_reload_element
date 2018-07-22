@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]]()
-[![Dependency Status][ico-dependencies]][link-dependencies]
 
 AjaxReloadElement gives you the possibility to fetch a particular front end module or content element via an ajax
 request.
@@ -60,15 +59,15 @@ This code snippet will replace the HTML node `.mod_my_module` when clicking on `
 
 This one comes out of the box.
 
-For all modules that integrate forms you can tick the box «Update a form via ajax». Additionally the template
+For all modules that integrate forms, you can tick the box «Update a form via ajax». Additionally, the template
 "j_ajaxforms" has to be included in the page layout. Instead of reloading the entire page, forms will update itself.
 
 This feature is supported for all Contao core forms like *change password,* *personal data,* *login form* etc. and forms
-from third party apps that are programmed in Contao style.
+from third-party apps that are programmed in Contao style.
 
 #### Demonstration
 
-When the login was sucessfull, the redirect processed in the login form will be followed.
+When the login was successful, the redirect processed in the login form will be followed.
 
 ![Demonstration with Contao's core login form](https://cloud.githubusercontent.com/assets/1284725/15799602/20d59fc8-2a62-11e6-8c22-2d1d971aeb20.gif)
 
@@ -122,7 +121,5 @@ option. In addition, you enable the ajax form as stated above (see paragraph «A
 
 [ico-version]: https://img.shields.io/packagist/v/richardhj/contao-ajax_reload_element.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-LGPL-brightgreen.svg?style=flat-square
-[ico-dependencies]: https://www.versioneye.com/php/richardhj:contao-ajax_reload_element/badge.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/richardhj/contao-ajax_reload_element
-[link-dependencies]: https://www.versioneye.com/php/richardhj:contao-ajax_reload_element
