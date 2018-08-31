@@ -13,6 +13,7 @@
             $form = $(this);
             $element = $(this).closest('[class^="ce_"],[class^="mod_"]');
             $element.addClass(options.reloadCssClass);
+            $element.trigger('ajax-reload:submitted');
 
             formAction = $form.attr('action') ? $form.attr('action') : location.href;
             buildUrl = function (base, params) {
@@ -37,6 +38,8 @@
                                 // Update the current url
                                 window.history.pushState({}, '', window.location.protocol + '//' + window.location.host + '/' + $element.find('form:first').attr('action'));
                             }
+
+                            $element.trigger('ajax-reload:completed');
                         }
                         else {
                             location.reload();
