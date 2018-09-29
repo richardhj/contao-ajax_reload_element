@@ -55,8 +55,7 @@ class AjaxReloadElementListener
         // Determine whether we have a module, a content element or an article by the vars given at this point
         $type = ('article' === $template->type)
             ? self::TYPE_ARTICLE
-            : (('tl_article' === $template->ptable) ? self::TYPE_CONTENT : self::TYPE_MODULE);
-
+            : (\in_array($template->ptable, ['tl_article', 'tl_news', 'tl_calendar_events'], true) ? self::TYPE_CONTENT : self::TYPE_MODULE);
 
         // cssID is parsed in all common templates
         // Use cssID for our attribute
