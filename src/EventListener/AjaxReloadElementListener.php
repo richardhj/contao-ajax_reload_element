@@ -93,6 +93,9 @@ class AjaxReloadElementListener
         $requestUrl = UrlBuilder::fromUrl(Environment::get('request'));
         $requestUrl->unsetQueryParameter('ajax_reload_element');
         Environment::set('request', $requestUrl->getUrl());
+        
+        // Unset the get parameter (as it manipulates MetaModels filter url)
+        Input::setGet('ajax_reload_element', null);
 
         switch ($elementType) {
             case self::TYPE_MODULE:
