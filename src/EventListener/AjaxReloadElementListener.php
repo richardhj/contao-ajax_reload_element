@@ -138,12 +138,12 @@ class AjaxReloadElementListener
         // Set theme and layout related information in the page object (see #10)
         $theme = $layout->getRelated('pid');
         $this->pictureFactory->setDefaultDensities($theme->defaultImageDensities);
-		$page->layoutId = $layout->id;
-		$page->template = $layout->template ?: 'fe_page';
-		$page->templateGroup = $theme->templates;
-		list($strFormat, $strVariant) = explode('_', $layout->doctype);
-		$page->outputFormat = $strFormat;
-		$page->outputVariant = $strVariant;
+        $page->layoutId = $layout->id;
+        $page->template = $layout->template ?: 'fe_page';
+        $page->templateGroup = $theme->templates;
+        list($strFormat, $strVariant) = explode('_', $layout->doctype);
+        $page->outputFormat = $strFormat;
+        $page->outputVariant = $strVariant;
 
         // Parse the element
         $return = $elementParser($element);
