@@ -16,6 +16,7 @@ namespace Richardhj\ContaoAjaxReloadElementBundle\EventListener;
 use Contao\ArticleModel;
 use Contao\ContentModel;
 use Contao\Controller as ContaoController;
+use Contao\CoreBundle\Image\PictureFactory;
 use Contao\Environment;
 use Contao\FrontendTemplate;
 use Contao\Input;
@@ -40,6 +41,19 @@ class AjaxReloadElementListener
     const ERROR_ELEMENT_NOT_FOUND        = 1;
     const ERROR_ELEMENT_AJAX_NOT_ALLOWED = 2;
     const ERROR_ELEMENT_TYPE_UNKNOWN     = 3;
+
+
+    /**
+     * @var PictureFactory
+     */
+    private $pictureFactory;
+
+
+    public function __construct(PictureFactory $pictureFactory)
+    {
+        $this->pictureFactory = $pictureFactory; 
+    }
+
 
     /**
      * Add the html attribute to allowed elements
@@ -75,7 +89,7 @@ class AjaxReloadElementListener
      * @internal param LayoutModel $layout
      * @internal param PageRegular $pageHandler
      */
-    public function onGetPageLayout()
+    public function onGetPageLayout($page, $layout)
     {
         if (false === Environment::get('isAjaxRequest')
             || !(null !== ($paramElement = Input::get('ajax_reload_element'))
@@ -93,9 +107,6 @@ class AjaxReloadElementListener
         $requestUrl = UrlBuilder::fromUrl(Environment::get('request'));
         $requestUrl->unsetQueryParameter('ajax_reload_element');
         Environment::set('request', $requestUrl->getUrl());
-        
-        // Unset the get parameter (as it manipulates MetaModels filter url)
-        Input::setGet('ajax_reload_element', null);
 
         switch ($elementType) {
             case self::TYPE_MODULE:
@@ -124,6 +135,17 @@ class AjaxReloadElementListener
         // Remove login error from session as it is not done in the module class anymore (see contao/core#7824)
         unset($_SESSION['LOGIN_ERROR']);
 
+        // Set theme and layout related information in the page object (see #10)
+        $theme = $layout->getRelated('pid');
+        $this->pictureFactory->setDefaultDensities($theme->defaultImageDensities);
+		$page->layoutId = $layout->id;
+		$page->template = $layout->template ?: 'fe_page';
+		$page->templateGroup = $theme->templates;
+		list($strFormat, $strVariant) = explode('_', $layout->doctype);
+		$page->outputFormat = $strFormat;
+		$page->outputVariant = $strVariant;
+
+        // Parse the element
         $return = $elementParser($element);
 
         // Replace insert tags and then re-replace the request_token tag in case a form element has been loaded via insert tag
