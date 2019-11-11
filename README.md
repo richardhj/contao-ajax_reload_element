@@ -54,6 +54,43 @@ This code snippet will replace the HTML node `.mod_my_module` when clicking on `
 
 </script>
 ```
+### Ajax Calendar
+Add this to the `cal_default.html5` Template and add a Class like here `.inn_call_ajax` to the next and previous month links. In This example we have an article with the id `calendar` and the contao calendar as element.
+
+```html
+<script>
+    $("#calendar a.inn_call_ajax").click(function (event) {
+        var element;
+        //Get url of next Month
+        var $url = window.location.origin + '/' + $(this).attr('href');
+        // Don't follow the link
+        event.preventDefault();
+
+        // This is the elements div container like ".mod_my_module". "Allow ajax reload" has to be ticket for this element in the backend
+        element = $(this).closest('.mod_article');
+        // Add a css class to this element. An overlay and spinning icon can be set via css
+        element.addClass('ajax-reload-element-overlay');
+        
+        $.ajax({
+            method: 'POST',
+            url: $url,
+            data: {
+                // The data- attribute is set automatically
+                ajax_reload_element: element.attr('data-ajax-reload-element')
+            }
+        })
+            .done(function (response, status, xhr) {
+                if ('ok' === response.status) {
+                    // Replace the DOM
+                    element.replaceWith(response.html);
+                } else {
+                    // Reload the page as fallback
+                    location.reload();
+                }
+            });
+    });
+</script>
+```
 
 ### Ajax forms
 
