@@ -55,7 +55,7 @@ This code snippet will replace the HTML node `.mod_my_module` when clicking on `
 </script>
 ```
 ### Ajax Calendar
-Add this to the `cal_default.html5` template and add a class like here `.inn_call_ajax` to the next and previous month links. In this example we have an article with the id `calendar` and the contao calendar as element.
+Add this to the `cal_default.html5` template and add the CSS classes `.calendar__next` and `.calendar__prev` to the next and previous month links. 
 
 ```html
 <script>
