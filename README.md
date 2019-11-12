@@ -59,7 +59,7 @@ Add this to the `cal_default.html5` template and add the CSS classes `.calendar_
 
 ```html
 <script>
-    $("#calendar a.inn_call_ajax").click(function (event) {
+    $(".calendar__next, .calendar__prev").click(function (event) {
         var element;
         //Get url of next Month
         var $url = window.location.origin + '/' + $(this).attr('href');
