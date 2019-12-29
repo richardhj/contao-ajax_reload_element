@@ -11,7 +11,7 @@
             event.preventDefault();
 
             $form = $(this);
-            $element = $(this).closest('[class^="ce_"],[class^="mod_"]');
+            $element = $(this).closest('*[class^="ce_"][data-ajax-reload-element],*[class^="mod_"][data-ajax-reload-element]');
             $element.addClass(options.reloadCssClass);
             $element.trigger('ajax-reload:submitted');
 
