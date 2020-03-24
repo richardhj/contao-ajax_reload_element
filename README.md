@@ -55,7 +55,8 @@ This code snippet will replace the HTML node `.mod_my_module` when clicking on `
 </script>
 ```
 ### Ajax Calendar
-Add this to the `cal_default.html5` template and add the CSS classes `.calendar__next` and `.calendar__prev` to the next and previous month links. 
+Add this to the `cal_default.html5` template and add the CSS classes `.calendar__next` and `.calendar__prev` to the next and previous month links.  
+Don't forget to activate ajax reload on the content element or module.
 
 ```html
 <script>
@@ -66,7 +67,7 @@ Add this to the `cal_default.html5` template and add the CSS classes `.calendar_
         // Don't follow the link
         event.preventDefault();
         // This is the elements div container like ".mod_my_module". "Allow ajax reload" has to be ticket for this element in the backend
-        element = $(this).closest('.mod_article');
+        element = $(this).closest('[class^="ce_"],[class^="mod_"]');
         // Add a css class to this element. An overlay and spinning icon can be set via css
         element.addClass('ajax-reload-element-overlay');
         
