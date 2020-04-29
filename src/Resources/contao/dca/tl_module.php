@@ -34,7 +34,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['allowAjaxReload'] = [
     'inputType' => 'checkbox',
     'eval'      => [
         'submitOnChange' => true,
-        'tl_class'       => 'clr w50 m12',
+        'tl_class'       => 'clr w50',
     ],
     'sql'       => "char(1) NOT NULL default ''",
 ];
@@ -43,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['ajaxReloadFormSubmit'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_module']['ajaxReloadFormSubmit'],
     'inputType' => 'checkbox',
     'eval'      => [
-        'tl_class' => 'w50 m12',
+        'tl_class' => 'clr w50',
     ],
     'sql'       => "char(1) NOT NULL default ''",
 ];
