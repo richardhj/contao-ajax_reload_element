@@ -11,11 +11,12 @@
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
+use Richardhj\ContaoAjaxReloadElementBundle\EventListener\DataContainer\ModifyPalettesListener;
 
 /**
- * Palettes
+ * Config
  */
-$GLOBALS['TL_DCA']['tl_article']['palettes']['default'] .= ',allowAjaxReload';
+$GLOBALS['TL_DCA']['tl_article']['config']['onload_callback'][] = [ModifyPalettesListener::class, '__invoke'];
 
 /**
  * Fields

@@ -11,19 +11,17 @@
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
+use Richardhj\ContaoAjaxReloadElementBundle\EventListener\DataContainer\ModifyPalettesListener;
+
+/**
+ * Config
+ */
+$GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = [ModifyPalettesListener::class, '__invoke'];
 
 /**
  * Palettes
  */
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'allowAjaxReload';
-foreach ($GLOBALS['TL_DCA']['tl_module']['palettes'] as $name => $palette) {
-    if ('__selector__' === $name) {
-        continue;
-    }
-
-    $GLOBALS['TL_DCA']['tl_module']['palettes'][$name] .= ',allowAjaxReload';
-}
-
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['allowAjaxReload'] = 'ajaxReloadFormSubmit';
 
 /**
