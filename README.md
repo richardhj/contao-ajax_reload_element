@@ -80,15 +80,15 @@ Add this to the `cal_default.html5` template. Don't forget to activate ajax relo
                 ajax_reload_element: element.attr('data-ajax-reload-element')
             }
         })
-        .done(function (response, status, xhr) {
-            if ('ok' === response.status) {
-                // Replace the DOM
-                element.replaceWith(response.html);
-            } else {
-                // Reload the page as fallback
-                location.reload();
-            }
-        });
+            .done(function (response, status, xhr) {
+                if ('ok' === response.status) {
+                    // Replace the DOM
+                    element.replaceWith(response.html);
+                } else {
+                    // Reload the page as fallback
+                    location.reload();
+                }
+            });
     });
 </script>
 ```
