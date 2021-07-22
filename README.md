@@ -54,21 +54,22 @@ This code snippet will replace the HTML node `.mod_my_module` when clicking on `
 
 </script>
 ```
+
 ### Ajax Calendar
-Add this to the `cal_default.html5` template and add the CSS classes `.calendar__next` and `.calendar__prev` to the next and previous month links.  
-Don't forget to activate ajax reload on the content element or module.
+
+Add this to the `cal_default.html5` template. Don't forget to activate ajax reload on the module.
 
 ```html
 <script>
-    $(".calendar__next, .calendar__prev").click(function (event) {
+    $(".calendar .head.previous a, .calendar .head.next a").click(function (event) {
         var element;
-        //Get url of next Month
+        // Get url of next/previous month
         var $url = window.location.origin + '/' + $(this).attr('href');
         // Don't follow the link
         event.preventDefault();
-        // This is the elements div container like ".mod_my_module". "Allow ajax reload" has to be ticket for this element in the backend
+        // This is the element's div container like ".mod_my_module". "Allow ajax reload" has to be enabled for this module in the back end
         element = $(this).closest('[class^="ce_"],[class^="mod_"]');
-        // Add a css class to this element. An overlay and spinning icon can be set via css
+        // Add a css class to this element. An overlay and spinning icon can be set via css.
         element.addClass('ajax-reload-element-overlay');
         
         $.ajax({
@@ -79,15 +80,15 @@ Don't forget to activate ajax reload on the content element or module.
                 ajax_reload_element: element.attr('data-ajax-reload-element')
             }
         })
-            .done(function (response, status, xhr) {
-                if ('ok' === response.status) {
-                    // Replace the DOM
-                    element.replaceWith(response.html);
-                } else {
-                    // Reload the page as fallback
-                    location.reload();
-                }
-            });
+        .done(function (response, status, xhr) {
+            if ('ok' === response.status) {
+                // Replace the DOM
+                element.replaceWith(response.html);
+            } else {
+                // Reload the page as fallback
+                location.reload();
+            }
+        });
     });
 </script>
 ```
