@@ -104,9 +104,9 @@ class AjaxReloadElementListener
         list ($elementType, $elementId) = trimsplit('::', $paramElement);
 
         // Remove the get parameter from the url
-        $requestUrl = UrlBuilder::fromUrl(Environment::get('request'));
+        $requestUrl = UrlBuilder::fromUrl('/'.Environment::get('request'));
         $requestUrl->unsetQueryParameter('ajax_reload_element');
-        Environment::set('request', $requestUrl->getUrl());
+        Environment::set('request', ltrim($requestUrl->getUrl(), '/'));
 
         // Unset the get parameter (as it manipulates MetaModels filter url)
         Input::setGet('ajax_reload_element', null);
