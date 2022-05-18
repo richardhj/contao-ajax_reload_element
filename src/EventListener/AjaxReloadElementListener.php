@@ -16,7 +16,7 @@ namespace Richardhj\ContaoAjaxReloadElementBundle\EventListener;
 use Contao\ArticleModel;
 use Contao\ContentModel;
 use Contao\Controller as ContaoController;
-use Contao\CoreBundle\Image\PictureFactory;
+use Contao\CoreBundle\Image\PictureFactoryInterface;
 use Contao\Environment;
 use Contao\FrontendTemplate;
 use Contao\Input;
@@ -44,12 +44,12 @@ class AjaxReloadElementListener
 
 
     /**
-     * @var PictureFactory
+     * @var PictureFactoryInterface
      */
     private $pictureFactory;
 
 
-    public function __construct(PictureFactory $pictureFactory)
+    public function __construct(PictureFactoryInterface $pictureFactory)
     {
         $this->pictureFactory = $pictureFactory; 
     }
