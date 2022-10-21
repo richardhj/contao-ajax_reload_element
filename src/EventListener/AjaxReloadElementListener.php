@@ -3,11 +3,11 @@
 /**
  * This file is part of richardhj/contao-ajax_reload_element.
  *
- * Copyright (c) 2016-2018 Richard Henkenjohann
+ * Copyright (c) 2016-2022 Richard Henkenjohann
  *
  * @package   richardhj/contao-ajax_reload_element
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
- * @copyright 2016-2018 Richard Henkenjohann
+ * @copyright 2016-2022 Richard Henkenjohann
  * @license   https://github.com/richardhj/contao-ajax_reload_element/blob/master/LICENSE LGPL-3.0
  */
 
@@ -144,7 +144,7 @@ class AjaxReloadElementListener
         $page->layoutId = $layout->id;
         $page->template = $layout->template ?: 'fe_page';
         $page->templateGroup = $theme->templates;
-        list($strFormat, $strVariant) = explode('_', $layout->doctype);
+        list($strFormat, $strVariant) = explode('_', $layout->doctype) + array(null, null);
         $page->outputFormat = $strFormat;
         $page->outputVariant = $strVariant;
 
