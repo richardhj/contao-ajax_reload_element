@@ -4,5 +4,5 @@ services:
     arguments:
       - '@contao.image.picture_factory'
   
-  Richardhj\ContaoAjaxReloadElementBundle\EventListener\DataContanier\ModifyPalettesListener:
+  Richardhj\ContaoAjaxReloadElementBundle\EventListener\DataContainer\ModifyPalettesListener:
     public: true
